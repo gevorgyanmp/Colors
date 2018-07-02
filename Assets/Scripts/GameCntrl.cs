@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Advertisements;
 
 public class GameCntrl : MonoBehaviour {
 
@@ -15,12 +16,24 @@ public class GameCntrl : MonoBehaviour {
     private float rCol, gCol, bCol;
     public Text score;
     private static Color aColor;
+    private static int loseCount =0;
+    private bool functdone;
+
 
     [HideInInspector]
     public bool next, lose;
 
     void Start()
     {
+        if (Advertisement.isSupported)
+        {
+            Advertisement.Initialize("2654609", false);
+
+        }
+        else
+        {
+            Debug.Log("Platfom is not support ADS");
+        }
         count = 0;
         next = false;
         lose = false;
@@ -36,7 +49,7 @@ public class GameCntrl : MonoBehaviour {
 
     void Update()
     {
-        if (lose)
+        if (lose && !functdone)
             playerLose();
         if (next && !lose)
             nextColors();
@@ -91,6 +104,12 @@ public class GameCntrl : MonoBehaviour {
 
     void playerLose()
     {
+        functdone = true;
+        loseCount++;
+        if(Advertisement.IsReady() && loseCount%5==0)
+        {
+            Advertisement.Show();
+        }
         print("Player lose");
         if (PlayerPrefs.GetInt("Score") < count)
         {

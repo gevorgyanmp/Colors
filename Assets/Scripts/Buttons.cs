@@ -81,7 +81,7 @@ public class Buttons : MonoBehaviour {
                 }
                 break;
             case "Ratings":
-
+                Application.OpenURL("https://play.google.com/store/apps/details?id=com.xenoworks.colors");
                 break;
             case "Replay":
                 SceneManager.LoadScene("Game");
@@ -89,12 +89,7 @@ public class Buttons : MonoBehaviour {
             case "Menu":
                 SceneManager.LoadScene("Main_Menu");
                 break;
-            case "Recover":
-
-                break;
-            case "Ads":
-
-                break;
+           
 
         }
 
